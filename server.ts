@@ -10,6 +10,6 @@ app.listen(process.env.PORT,()=>{
 
 app.get('/',(_req: Request, res: Response)=>{
     return res.json({
-        "status": "Successfully has running the server."
+        "status": "Successfully has running the server"
     })
 })
