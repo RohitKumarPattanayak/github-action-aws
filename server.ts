@@ -4,8 +4,8 @@ const app = express()
 
 dotenv.config()
 
-app.listen(process.env.PORT,()=>{
-    console.log("server is running :", process.env.PORT)
+app.listen(3000,()=>{
+    console.log("server is running :", 3000)
 })
 
 app.get('/',(_req: Request, res: Response)=>{
