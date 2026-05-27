@@ -1,0 +1,29 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    # Only deploy if CI succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Pull Docker Image
+        run: sudo docker pull rohitdocked/node-app-cicd:latest
+
+      - name: Delete Old Container
+        run: sudo docker rm -f node-app-cicd-container || true
+
+      - name: Run Latest Container
+        run: |
+          sudo docker run -d \
+            -p 3000:3000 \
+            --name node-app-cicd-container \
+            --restart always \
+            rohitdocked/node-app-cicd:latest
