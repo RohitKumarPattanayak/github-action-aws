@@ -10,6 +10,6 @@ app.listen(3000,()=>{
 
 app.get('/',(_req: Request, res: Response)=>{
     return res.json({
-        "status": "Successfully has running the server"
+        "status": "Successfully completed a node cicd pipeline to ec2"
     })
 })
