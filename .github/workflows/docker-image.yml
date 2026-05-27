@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Docker Login
+      env:
+        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+        DCOKER_PASSWORD: ${{secrets.DCOKER_PASSWORD}}
+      run: docker login -u $DOCKER_USERNAME -p $DCOKER_PASSWORD
+      
+    - name: Build Docker Image
+      run: docker build -t node-app-cicd .
+
+    - name: Push to Docker Hub
+      run: docker push rohitdocked/node-app-cicd:latest
+
+      
